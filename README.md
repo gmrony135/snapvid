@@ -7,15 +7,19 @@ Paste a supported link → pick a quality → watch it download. Dark and light 
 works on iPhone, Android, tablet and desktop.
 
 <p align="center">
-  <img src="assets/screens/01-home-dark.jpg" width="24%" alt="Home — dark" />
-  <img src="assets/screens/03-quality-selected.jpg" width="24%" alt="Choose quality" />
-  <img src="assets/screens/04-progress-dark.jpg" width="24%" alt="Download progress" />
-  <img src="assets/screens/11-home-light.jpg" width="24%" alt="Home — light" />
+  <img src="assets/screens/01-home-empty-dark.jpg" width="24%" alt="Home — dark, empty" />
+  <img src="assets/screens/05-quality-selected-dark.jpg" width="24%" alt="Choose quality" />
+  <img src="assets/screens/07-progress-paused-dark.jpg" width="24%" alt="Download progress" />
+  <img src="assets/screens/11-downloads-empty-dark.jpg" width="24%" alt="Empty downloads" />
 </p>
 
 ## Run it
 
-Just open **`index.html`** in any browser. That's the whole app — one file, ~650 KB, works offline.
+Just open **`index.html`** in any browser. That's the whole app — one file, ~55 KB, works offline.
+
+It ships **empty on purpose**: no sample titles, no placeholder videos, no demo history. You paste (or type)
+a link, and everything you see afterwards — the video name, the file sizes, the download list — comes from
+that link and from what you actually download.
 
 Prefer a server?
 
@@ -32,15 +36,18 @@ python3 -m http.server 8000
 | **Downloading** — progress ring, %, MB done of total, ETA, `Pause` / `Resume` / `Cancel` | **Complete** — animated check, quality + size summary, `Open` / `Share` / `Download another` |
 | **Downloads** — grouped by Today / Yesterday, row menu: Open, Share, Delete, and a friendly empty state | **Settings** — Dark / Light / System, default quality, Wi‑Fi only, clear history, privacy note |
 
-More screenshots: [`assets/screens/`](assets/screens) — 14 captures in dark and light.
+More screenshots: [`assets/screens/`](assets/screens) — 14 captures in dark and light, including the empty
+and error states.
 
 ## Try this
 
-1. Press **Paste** → **Analyze Video** (watch the staged check: reading → permission → formats).
+1. Paste a link (**Paste** reads your clipboard) or type one, then **Analyze Video** — watch the staged
+   check: reading → permission → formats.
 2. Pick a quality — the button label follows your choice.
 3. **Download** — pause and resume it, or cancel and go back.
-4. Type `netflix.com/...` and analyze → see the unsupported-source state.
-5. **Settings → Clear download history**, then open **Downloads** to see the empty state.
+4. Leave the field empty, or type `netflix.com/...`, and analyze → see the error states.
+5. **Downloads** is empty until your first download finishes; **Settings → Clear download history** empties
+   it again (your files are untouched).
 
 ## Product rule
 
@@ -51,7 +58,7 @@ rights get a clear, actionable message instead. This rule is reflected in the UI
 ## Project layout
 
 ```
-index.html              the app — single file, self-contained (CSS, JS, thumbnails, icon all inlined)
+index.html              the app — single file, self-contained (CSS, JS, icon all inlined)
 assets/
   screens/              14 screenshots (used in this README)
   brand/                app icon: dark / light / accent tiles, 16→1024 px, SVG marks, Android + iOS assets
