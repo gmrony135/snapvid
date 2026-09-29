@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-motion="full">
+<head>
+<meta charset="utf-8" />
+<title>SnapVid — Design System & Prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#08090b" />
+<meta name="description" content="SnapVid — complete UI/UX design system and interactive prototype for a premium cross-platform video downloader. 13 screens, dark and light, iPhone / Android / tablet / desktop." />
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-180.png" />
+<link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+
+<div class="studio">
+  <!-- ------------------------------ TOP BAR ------------------------------ -->
+  <header class="studio-bar">
+    <div class="studio-brand">
+      <span class="studio-brand__mark" id="brandMark" aria-hidden="true"></span>
+      <span>
+        <span class="studio-brand__t">SnapVid</span><br />
+        <span class="studio-brand__s">Design system &amp; interactive prototype · v2.4</span>
+      </span>
+    </div>
+
+    <div class="studio-tools">
+      <span class="tool-label">Device</span>
+      <div class="tool-group" id="deviceGroup" role="group" aria-label="Device frame"></div>
+
+      <span class="tool-label">Theme</span>
+      <div class="tool-group" id="themeGroup" role="group" aria-label="Theme"></div>
+
+      <div class="tool-group">
+        <button id="orientBtn" aria-pressed="false" title="Rotate the device frame — layout must hold in both orientations">Portrait</button>
+        <button id="motionBtn" aria-pressed="false" title="Disable animations to check reduced-motion behaviour">Calm motion</button>
+      </div>
+
+      <span class="tool-label">Scenario</span>
+      <div class="tool-group" style="padding-right:6px">
+        <select id="scenario" aria-label="Demo scenario"
+          style="height:34px;background:transparent;border:0;color:#eef0f3;font-size:13px;font-weight:600;padding:0 8px;outline:none">
+        </select>
+      </div>
+      <div class="tool-group">
+        <button id="demoBtn" data-act="play-demo">▶ Play demo</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ------------------------------- BODY -------------------------------- -->
+  <div class="studio-body">
+    <aside class="rail" id="rail" aria-label="Screens"></aside>
+    <main class="stage" id="stage" aria-live="polite"></main>
+    <aside class="notes" id="notes" aria-label="Design notes"></aside>
+  </div>
+</div>
+
+<script src="src/js/images.js"></script>
+<script src="src/js/data.js"></script>
+<script src="src/js/screens-a.js"></script>
+<script src="src/js/screens-b.js"></script>
+<script src="src/js/app.js"></script>
+<script>
+  // The "Play demo" button in the top bar mirrors the rail action.
+  document.getElementById("demoBtn").addEventListener("click", () => {
+    S.demo ? (S.demo = false, clearDemo(), render()) : playDemo();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# dependencies & caches (never commit)
+node_modules/
+.cache/
+.npm/
+*.log
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# heavy dev artifacts — regenerate with: node design-system/tools/shots.js
+design-system/preview/*.png

@@ -1,0 +1,18 @@
+{
+  "name": "snapvid-design-system",
+  "version": "2.4.0",
+  "private": true,
+  "description": "SnapVid — complete UI/UX design system and interactive prototype for a premium cross-platform video downloader.",
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --bind 0.0.0.0",
+    "brand": "python3 tools/make_assets.py",
+    "test": "node tools/smoke.js",
+    "shots": "node tools/shots.js",
+    "build": "python3 tools/build.py",
+    "all": "python3 tools/make_assets.py && node tools/smoke.js && node tools/shots.js && python3 tools/build.py"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "playwright": "^1.63.0"
+  }
+}
