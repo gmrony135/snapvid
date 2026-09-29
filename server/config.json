@@ -1,0 +1,22 @@
+{
+  "port": 8787,
+  "host": "0.0.0.0",
+  "downloadDir": "downloads",
+  "_comment_allowedHosts": "Empty list = accept any source the engine (yt-dlp) supports. Fill it, e.g. [\"archive.org\", \"vimeo.com\"], to lock this server down to sources you are allowed to download from.",
+  "allowedHosts": [],
+  "_comment_maxDuration": "Refuse videos longer than this many seconds (default 4 hours).",
+  "maxDurationSeconds": 14400,
+  "_comment_maxConcurrent": "How many downloads may run at the same time.",
+  "maxConcurrentDownloads": 2,
+  "_comment_apiToken": "Optional. If you set a string here, the API requires that token. Open the app once as /?token=YOUR-TOKEN and it is remembered in the browser.",
+  "apiToken": null,
+  "engine": {
+    "cmd": "python3",
+    "args": [
+      "-m",
+      "yt_dlp"
+    ]
+  },
+  "_comment_maxQualityHeight": "Highest resolution offered in the quality list (sources above this are capped).",
+  "maxQualityHeight": 1080
+}

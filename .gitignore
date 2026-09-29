@@ -10,3 +10,6 @@ Thumbs.db
 
 # heavy dev artifacts — regenerate with: node design-system/tools/shots.js
 design-system/preview/*.png
+
+# downloaded media + per-job engine logs (never commit)
+server/downloads/

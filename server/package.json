@@ -1,0 +1,16 @@
+{
+  "name": "snapvid-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The real backend behind the SnapVid app: resolves a video link, checks it is allowed to be downloaded, then downloads it.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node check.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
