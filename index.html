@@ -416,11 +416,11 @@ h1,h2,h3,p{margin:0}
       <ul class="facts">
         <li><span>Quality</span><span id="cQuality">720p · MP4 · H.264</span></li>
         <li><span>File size</span><span id="cSize">84 MB</span></li>
-        <li><span>Saved to</span><span>Files ▸ SnapVid</span></li>
+        <li><span>Saved to</span><span>Photos ▸ SnapVid</span></li>
       </ul>
 
       <div class="btn-row" style="margin-top:18px">
-        <button class="btn btn--primary grow" data-toast="Opening file…">Open</button>
+        <button class="btn btn--primary grow" data-toast="Opening in Photos…">Open</button>
         <button class="btn grow" data-toast="Share sheet opened">Share</button>
       </div>
       <button class="btn btn--ghost btn--block" id="againBtn" style="margin-top:6px">Download another</button>
@@ -433,7 +433,7 @@ h1,h2,h3,p{margin:0}
       <div id="dlGroups" style="margin-top:6px"></div>
       <p class="policy" id="dlPolicy">
         <svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6v6c0 4-3 7.2-7 8.5-4-1.3-7-4.5-7-8.5V6Z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
-        Files stay on your device. Clearing history never deletes them.
+        Videos are saved to your gallery. Clearing history never deletes them.
       </p>
     </section>
 
@@ -454,6 +454,10 @@ h1,h2,h3,p{margin:0}
         <li><div class="setrow">
           <span class="row__t"><b style="font-size:15px">Default quality</b><span class="row__meta">Used when several options exist</span></span>
           <span class="v" id="defQuality">1080p</span>
+        </div></li>
+        <li><div class="setrow">
+          <span class="row__t"><b style="font-size:15px">Save to</b><span>Downloads go straight to your gallery</span></span>
+          <span class="v">Photos ▸ SnapVid</span>
         </div></li>
         <li><button class="setrow" data-act="cycle-quality">
           <span class="row__t"><b style="font-size:15px">Change default</b><span class="row__meta">1080p → 720p → 480p</span></span>
@@ -720,7 +724,7 @@ function openMenu(id) {
   sheet.className = "sheet"; sheet.id = "sheet"; sheet.setAttribute("role", "menu");
   sheet.innerHTML =
     '<div class="grab"></div>' +
-    '<button class="row" role="menuitem" data-toast="Opening file…"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5.5h4.5V10"/><path d="M18.5 5.5 11 13"/><path d="M17 14.5v3.4a1.6 1.6 0 0 1-1.6 1.6H6.1A1.6 1.6 0 0 1 4.5 17.9V8.6A1.6 1.6 0 0 1 6.1 7h3.4"/></svg>Open</button>' +
+    '<button class="row" role="menuitem" data-toast="Opening in Photos…"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5.5h4.5V10"/><path d="M18.5 5.5 11 13"/><path d="M17 14.5v3.4a1.6 1.6 0 0 1-1.6 1.6H6.1A1.6 1.6 0 0 1 4.5 17.9V8.6A1.6 1.6 0 0 1 6.1 7h3.4"/></svg>Open</button>' +
     '<button class="row" role="menuitem" data-toast="Share sheet opened"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M6 13v5.5A1.5 1.5 0 0 0 7.5 20h9A1.5 1.5 0 0 0 18 18.5V13"/></svg>Share</button>' +
     '<button class="row" role="menuitem" data-del="' + id + '" style="color:var(--danger)"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7.5h14"/><path d="M9.5 7.5V6A1.5 1.5 0 0 1 11 4.5h2A1.5 1.5 0 0 1 14.5 6v1.5"/><path d="M6.5 7.5 7.3 19a1.5 1.5 0 0 0 1.5 1.4h6.4A1.5 1.5 0 0 0 16.7 19l.8-11.5"/></svg>Delete</button>';
   phone.appendChild(scrim); phone.appendChild(sheet);

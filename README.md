@@ -49,6 +49,32 @@ and error states.
 5. **Downloads** is empty until your first download finishes; **Settings → Clear download history** empties
    it again (your files are untouched).
 
+## What this prototype does (and doesn't)
+
+It's the **interface only** — no server, no downloader behind it. So:
+
+| | |
+|---|---|
+| ✅ Works | paste → analyse animation → pick quality → progress → saved list → settings, both themes, empty + error states. The video name shown after analysis is taken from the **host in the URL you pasted**. |
+| ❌ Can't work | it cannot look up a real video's title/thumbnail/sizes, and it cannot download a real video. There's nothing behind the button — `Paste` only reads your clipboard, and the progress bar is animated, not real data. |
+
+To make it real you need two separate pieces:
+
+1. **A backend resolver.** A server that takes a link, checks the source's download terms
+   (and refuses DRM / paywalled / login-only media), then returns title, thumbnail and the
+   available formats. The browser can't do this alone: cross-origin rules block it, and
+   permission checks must not be bypassable by the client.
+2. **A way into the phone's gallery.** A web page can never write to Photos/Gallery silently —
+   the platforms don't allow it. Two honest options:
+   - **Web Share API:** after downloading the file, call `navigator.share({ files: [...] })`; the user
+     taps *Save to Photos* in the system share sheet. Works today in mobile Safari/Chrome.
+   - **A native shell:** wrap the same UI with Capacitor and save through `PhotoKit` (iOS) /
+     `MediaStore` (Android) so the file lands in the gallery automatically.
+
+The UI in this repo already reflects that behaviour — *Saved to → Photos ▸ SnapVid*, *Save to →
+Downloads go straight to your gallery* — so when the backend and the share/native step are added,
+the screens don't need redesigning.
+
 ## Product rule
 
 SnapVid only processes videos you're authorised to download or that the source explicitly permits.
