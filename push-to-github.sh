@@ -18,12 +18,22 @@ if [ -z "${GITHUB_TOKEN:-}" ]; then
 fi
 
 echo "→ creating ${USER_NAME}/${REPO} (${VISIBILITY}) if it doesn't exist…"
+echo "  (রিপোটি টোকেনের মালিকের অ্যাকাউন্টে তৈরি হবে — তাই টোকেন অবশ্যই ${USER_NAME}-এর হতে হবে)"
 curl -sS -o /tmp/gh_create.json -w "%{http_code}\n" \
   -X POST https://api.github.com/user/repos \
   -H "Authorization: Bearer ${GITHUB_TOKEN}" \
   -H "Accept: application/vnd.github+json" \
   -d "{\"name\":\"${REPO}\",\"description\":\"SnapVid — save your favorite videos, simply.\",\"private\":$([ "$VISIBILITY" = private ] && echo true || echo false),\"has_issues\":true,\"has_wiki\":false}" \
-  | grep -qE "201|422" || { echo "repo creation failed:"; cat /tmp/gh_create.json; exit 1; }
+  | grep -qE "201|422" || {
+    echo
+    if grep -q '"status": "401"' /tmp/gh_create.json; then
+      echo "✗ টোকেন গ্রহণ করা হয়নি (401). টোকেন ঠিক আছে কিনা, আর মেয়াদ শেষ হয়ে গেছে কিনা দেখুন।"
+      echo "  দরকার: classic token + 'repo' scope, আর টোকেনটি অবশ্যই ${USER_NAME} অ্যাকাউন্টের হতে হবে।"
+    else
+      echo "✗ রিপো তৈরি করা যায়নি। GitHub যা বলেছে:"
+    fi
+    cat /tmp/gh_create.json; exit 1;
+  }
 
 echo "→ pushing…"
 git remote remove origin 2>/dev/null || true
