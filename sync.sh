@@ -86,10 +86,9 @@ fi
 
 # ------------------------------------------------- identity + remote (they can
 # get lost when the workspace is restored, so make sure they exist) -----------
-if ! git config user.email >/dev/null 2>&1; then
-  git config user.name "SnapVid"
-  git config user.email "snapvid@users.noreply.github.com"
-fi
+# always set it: this workspace drops .git/config, so the identity can vanish
+git config user.name "SnapVid"
+git config user.email "snapvid@users.noreply.github.com"
 git config commit.gpgsign false
 
 if ! git remote get-url origin >/dev/null 2>&1; then

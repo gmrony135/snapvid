@@ -150,9 +150,10 @@ from the link you paste or the files you actually download.
 Every commit made in this repo is pushed to GitHub automatically by a `post-commit` hook:
 
 ```bash
-./sync.sh --status          # local vs GitHub, and what's uncommitted
-./sync.sh                   # push now (usually not needed — the hook does it)
-./sync.sh --install-hook    # re-install the hook if .git/hooks is ever lost
+./commit.sh "what changed"   # stage everything, commit, push — the easiest way
+./sync.sh --status           # local vs GitHub, and what's uncommitted
+./sync.sh                    # push now (usually not needed — the hook does it)
+./sync.sh --install-hook     # re-install the hook if .git/hooks is ever lost
 ```
 
 How it works:
@@ -161,8 +162,9 @@ How it works:
   commit. It never blocks a commit — if the push fails it is logged and the commit stays local.
 - The token is read from `.snapvid-token` (untracked, `chmod 600`, listed in `.gitignore`) or from
   `$GITHUB_TOKEN`. It is never written into `.git/config` and never printed.
-- `sync.sh` also restores the git identity and the `origin` remote if a fresh clone of this workspace
-  lost them, so the hook keeps working.
+- `sync.sh` also restores the git identity and the `origin` remote on every run, because this
+  workspace does not preserve `.git/config` between sessions — that is why `commit.sh` exists:
+  it sets a valid author, commits, and then lets the hook push.
 - Failures land in `.git/autopush.log`; run `./sync.sh` again when the network or the token is back.
 
 **Keep it safe:** use a **fine-grained** token limited to this one repository with only
