@@ -402,5 +402,3 @@
   window.addEventListener("online", function () { if (!S.live) probeServer(); });
   probeServer();
 })();
-
-<!-- auto-push probe -->
