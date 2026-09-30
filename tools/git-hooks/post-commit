@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# SnapVid — after every commit, push to GitHub.
+# Installed to .git/hooks/post-commit by: ./sync.sh --install-hook
+# Never blocks the commit: failures are logged and reported at the end of the run.
+repo="$(git rev-parse --show-toplevel)"
+[ -x "$repo/sync.sh" ] && "$repo/sync.sh" >/dev/null 2>&1 || true
+exit 0

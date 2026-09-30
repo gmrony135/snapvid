@@ -145,6 +145,30 @@ from the link you paste or the files you actually download.
 
 ---
 
+## Auto-push (this repo pushes itself)
+
+Every commit made in this repo is pushed to GitHub automatically by a `post-commit` hook:
+
+```bash
+./sync.sh --status          # local vs GitHub, and what's uncommitted
+./sync.sh                   # push now (usually not needed — the hook does it)
+./sync.sh --install-hook    # re-install the hook if .git/hooks is ever lost
+```
+
+How it works:
+
+- `tools/git-hooks/post-commit` (installed into `.git/hooks/post-commit`) calls `sync.sh` after each
+  commit. It never blocks a commit — if the push fails it is logged and the commit stays local.
+- The token is read from `.snapvid-token` (untracked, `chmod 600`, listed in `.gitignore`) or from
+  `$GITHUB_TOKEN`. It is never written into `.git/config` and never printed.
+- `sync.sh` also restores the git identity and the `origin` remote if a fresh clone of this workspace
+  lost them, so the hook keeps working.
+- Failures land in `.git/autopush.log`; run `./sync.sh` again when the network or the token is back.
+
+**Keep it safe:** use a **fine-grained** token limited to this one repository with only
+*Contents: Read and write*, and an expiry date. To rotate it, overwrite `.snapvid-token` and delete the
+old token on GitHub. To stop the automatic pushes, remove `.git/hooks/post-commit`.
+
 ## Project layout
 
 ```

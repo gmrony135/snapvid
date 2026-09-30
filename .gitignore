@@ -13,3 +13,6 @@ design-system/preview/
 
 # downloaded media + per-job engine logs (never commit)
 server/downloads/
+
+# the GitHub token used by sync.sh (never commit this)
+.snapvid-token
