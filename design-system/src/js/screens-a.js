@@ -32,16 +32,10 @@ function appbar({ title, brand, back, right, solid }) {
   </header>`;
 }
 
-function avatarBtn() {
-  return `<button class="btn btn--icon btn--ghost" data-act="tab-settings" aria-label="Profile and settings" style="min-width:40px">
-    <span aria-hidden="true" style="width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:680;color:#fff;background:linear-gradient(150deg,#3b4250,#1e2229);box-shadow:var(--shadow-1),inset 0 0 0 1px var(--stroke-strong)">AR</span></button>`;
-}
-
 function tabbar(active) {
   const items = [
     { id: "home", label: "Home", icon: SV.home },
     { id: "library", label: "Downloads", icon: SV.download, dot: true },
-    { id: "settings", label: "Settings", icon: SV.sliders },
   ];
   return `<nav class="tabbar" aria-label="Primary">
     ${items.map((i) => `<button data-act="tab-${i.id}" ${active === i.id ? 'aria-current="page"' : ""}>
@@ -210,7 +204,7 @@ Screens.home = (st) => {
   const busy = st.busy;
   const invalid = st.fieldError;
   return `<div class="app">
-  ${appbar({ brand: true, right: avatarBtn() })}
+  ${appbar({ brand: true })}
   <div class="scroll scr-home">
     <section class="hero">
       <h2>Download videos.<br /> <span class="hero__grad">Your way.</span></h2>

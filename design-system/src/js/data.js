@@ -194,7 +194,7 @@ const EMPTIES = {
     key: "wifi", art: "wifi", title: "Waiting for Wi‑Fi",
     body: "2 downloads are queued. They'll start automatically on a trusted Wi‑Fi network.",
     primary: "Download anyway", secondary: "Turn off Wi‑Fi only",
-    note: "Set in Settings → Download → Wi‑Fi only.",
+    note: "Wi‑Fi only can be turned off for this download.",
   },
   offline: {
     key: "offline", art: "cloud", title: "You're offline",
@@ -268,11 +268,6 @@ const NOTES = {
     specs: ["Search field + filter chips (All / Video / Audio)", "Groups: Today, Yesterday, Older", "Row: 108px thumb, quality badge, size, date, overflow menu"],
     a11y: ["Overflow menu is a labelled button with a real menu role", "Delete asks for confirmation, undo available in a toast"],
   },
-  settings: {
-    title: "Settings", lead: "Four sections, each answerable in one tap.",
-    specs: ["Appearance: segmented Dark / Light / System", "Download: default quality, format, Wi-Fi only, auto-download", "General: language, notifications, clear history, about", "Privacy: data usage + supported-source policy"],
-    a11y: ["Switches are role=switch with aria-checked", "Every destructive action states its consequence"],
-  },
   errors: {
     title: "Error states", lead: "Seven realistic failures, each with an icon, plain language and a way forward.",
     specs: ["Tone maps to severity: warn, danger, info", "Pattern: what happened → why → what to do", "Never blame the user; never dead-end"],
@@ -285,7 +280,7 @@ const NOTES = {
   },
   desktop: {
     title: "Desktop website", lead: "Same identity, more air. Centred 1120px container, two-column workbench.",
-    specs: ["Top nav: logo, Home, Downloads, Settings, theme + profile", "Hero input centred at 1120px max-width", "Workbench: preview + quality panel left, progress panel right", "Library: 3-up card grid"],
+    specs: ["Top nav: logo, Home, Downloads, theme + profile", "Hero input centred at 1120px max-width", "Workbench: preview + quality panel left, progress panel right", "Library: 3-up card grid"],
     a11y: ["Focus rings visible on all dark surfaces", "Keyboard: tab order follows visual order", "Hover states mirror mobile pressed states"],
   },
 };

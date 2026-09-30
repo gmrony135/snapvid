@@ -19,8 +19,6 @@ const SHOTS = [
   { f: "complete-iphone-dark", id: "complete", device: "iphone", theme: "dark" },
   { f: "library-iphone-dark", id: "library", device: "iphone", theme: "dark" },
   { f: "library-iphone-light", id: "library", device: "iphone", theme: "light" },
-  { f: "settings-iphone-dark", id: "settings", device: "iphone", theme: "dark" },
-  { f: "settings-iphone-light", id: "settings", device: "iphone", theme: "light" },
   { f: "errors-iphone-dark", id: "errors", device: "iphone", theme: "dark" },
   { f: "empty-iphone-dark", id: "empty", device: "iphone", theme: "dark" },
   { f: "home-android-dark", id: "home", device: "android", theme: "dark" },
@@ -30,7 +28,6 @@ const SHOTS = [
   { f: "progress-iphone-dark-landscape", id: "progress", device: "iphone", theme: "dark", orient: "landscape" },
   { f: "desktop-home-dark", id: "desktop", device: "desktop", theme: "dark", page: "home" },
   { f: "desktop-library-dark", id: "desktop", device: "desktop", theme: "dark", page: "library" },
-  { f: "desktop-settings-light", id: "desktop", device: "desktop", theme: "light", page: "settings" },
 ];
 
 (async () => {

@@ -50,10 +50,9 @@ LABELS = {
     "progress": ("7 · Download progress", "Ring, size, ETA, pause/resume/cancel"),
     "complete": ("8 · Download complete", "Success check + Open / Share"),
     "library": ("9 · Downloads history", "Today / Yesterday / Older"),
-    "settings": ("10 · Settings", "Appearance, Download, General, Privacy"),
-    "errors": ("11 · Error states", "7 patterns + inline/banner variants"),
-    "empty": ("12 · Empty states", "4 situations, each actionable"),
-    "desktop": ("13 · Desktop website", "Centred 1120px container, 2-column workbench"),
+    "errors": ("10 · Error states", "7 patterns + inline/banner variants"),
+    "empty": ("11 · Empty states", "4 situations, each actionable"),
+    "desktop": ("12 · Desktop website", "Centred 1120px container, 2-column workbench"),
 }
 DEVICE_LABEL = {"iphone": "iPhone", "android": "Android", "tablet": "Tablet", "desktop": "Desktop"}
 for f in sorted(glob.glob("preview/*.png")):
@@ -129,10 +128,10 @@ gallery = f"""<!DOCTYPE html>
       <div style="font-size:12.5px;color:#868d96">Screen spec gallery · v2.4</div></div>
     </div>
     <h1>Every screen, every theme.</h1>
-    <p>All 13 screens captured in a real browser at 2× — iPhone, Android, tablet and desktop, in dark and light. These are the exact renders of the interactive prototype, not mockups.</p>
+    <p>All 12 screens captured in a real browser at 2× — iPhone, Android, tablet and desktop, in dark and light. These are the exact renders of the interactive prototype, not mockups.</p>
     <p style="color:var(--text-3)">Open <strong style="color:var(--text-2)">snapvid.html</strong> for the live prototype: real interactions, animated progress, bottom sheets and the guided demo.</p>
     <div class="meta">
-      <span>13 screens</span><span>39 components</span><span>Dark + light</span><span>iPhone · Android · tablet · desktop</span>
+      <span>12 screens</span><span>39 components</span><span>Dark + light</span><span>iPhone · Android · tablet · desktop</span>
       <span>WCAG AA contrast</span><span>48px touch targets</span><span>Reduced-motion aware</span>
     </div>
   </header>

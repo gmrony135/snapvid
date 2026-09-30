@@ -14,14 +14,11 @@ const SCREENS = [
   { id: "progress", n: 7, label: "Download progress", icon: "download" },
   { id: "complete", n: 8, label: "Download complete", icon: "check" },
   { id: "library", n: 9, label: "Downloads history", icon: "folder" },
-  { id: "settings", n: 10, label: "Settings", icon: "gear" },
-  { id: "errors", n: 11, label: "Error states", icon: "alert" },
-  { id: "empty", n: 12, label: "Empty states", icon: "cloud" },
-  { id: "desktop", n: 13, label: "Desktop website", icon: "laptop" },
+  { id: "errors", n: 10, label: "Error states", icon: "alert" },
+  { id: "empty", n: 11, label: "Empty states", icon: "cloud" },
+  { id: "desktop", n: 12, label: "Desktop website", icon: "laptop" },
 ];
 const MOBILE_ONLY = SCREENS.filter((s) => s.id !== "desktop").map((s) => s.id);
-
-const DEFAULT_SETTINGS = { defaultQuality: 1080, defaultFormat: "MP4", wifiOnly: true, autoDownload: "ask", language: "English (UK)", notifications: true };
 
 const S = {
   screen: "home",
@@ -348,10 +345,8 @@ document.addEventListener("click", (ev) => {
   switch (act) {
     case "tab-home": go("home"); break;
     case "tab-library": go("library"); break;
-    case "tab-settings": go("settings"); break;
     case "site-home": S.sitePage = "home"; render(); break;
     case "site-library": S.sitePage = "library"; render(); break;
-    case "site-settings": S.sitePage = "settings"; render(); break;
     case "back": {
       const prev = S.history.pop();
       if (prev) go(prev, false); else go(S.screen === "home" ? "home" : "home", false);
@@ -377,14 +372,7 @@ document.addEventListener("click", (ev) => {
     case "clear-search": S.libQuery = ""; render(); break;
     case "focus-search": { const i = $("#libSearch"); if (i) i.focus(); break; }
     case "set-theme": S.themePref = t.dataset.v; render(); T(`Theme: ${t.dataset.v === "system" ? "System" : t.dataset.v}`, "ok"); break;
-    case "cycle-quality": { const opts = [2160, 1080, 720, 480]; S.set.defaultQuality = opts[(opts.indexOf(S.set.defaultQuality) + 1) % opts.length]; render(); break; }
-    case "cycle-format": { const opts = ["MP4", "MKV", "M4A"]; S.set.defaultFormat = opts[(opts.indexOf(S.set.defaultFormat) + 1) % opts.length]; render(); break; }
-    case "cycle-auto": { const opts = ["ask", "always", "never"]; S.set.autoDownload = opts[(opts.indexOf(S.set.autoDownload) + 1) % opts.length]; render(); break; }
-    case "cycle-language": { const opts = ["English (UK)", "বাংলা", "हिन्दी", "Español", "العربية"]; S.set.language = opts[(opts.indexOf(S.set.language) + 1) % opts.length]; render(); break; }
-    case "toggle-wifi": S.set.wifiOnly = !S.set.wifiOnly; render(); T(S.set.wifiOnly ? "Wi‑Fi only on" : "Wi‑Fi only off"); break;
-    case "toggle-notif": S.set.notifications = !S.set.notifications; render(); break;
     case "toggle": { const on = t.getAttribute("aria-checked") === "true"; t.setAttribute("aria-checked", String(!on)); break; }
-    case "confirm-clear": T("History cleared · files kept", "warn"); break;
     case "set-error": S.errorKey = t.dataset.e; render(); break;
     case "set-empty": S.emptyKey = t.dataset.e; render(); break;
     case "primary-empty": T("Nothing to do yet — this is a design preview"); break;
@@ -402,7 +390,7 @@ document.addEventListener("click", (ev) => {
       if (act.startsWith("toast-")) {
         const map = {
           "toast-copied": "Link copied", "toast-opened": "Opening file…", "toast-shared": "Share sheet opened",
-          "toast-renamed": "Rename opened", "toast-about": "SnapVid 2.4.0 · Build 318", "toast-location": "Choose a folder",
+          "toast-renamed": "Rename opened", "toast-location": "Choose a folder",
           "toast-sorted": `Sorted by: ${S.sortDir}`, "toast-help": "Help centre opened", "toast-how": "Guided tour started",
           "toast-generic": "Got it", "toast-dismissed": "Dismissed", "toast-clear": "History cleared",
         };
@@ -513,10 +501,9 @@ function applyScenario(v) {
 }
 
 /* -------------------------------- BOOT ---------------------------------- */
-S.set = { ...DEFAULT_SETTINGS };
 paintTopbar();
 render();
 if (window.matchMedia) window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { if (S.themePref === "system") render(); });
 
 /* --------------------- PUBLIC HOOKS (debug & extension) ------------------ */
-window.SnapVid = { S, Screens, SV, VIDEOS, ERRORS, EMPTIES, DOWNLOADS, NOTES, POLICY, SOURCES, go, render, playDemo, clearDemo, startProgress, qualitySheet, policySheet };
+window.SnapVid = { S, SCREENS, Screens, SV, VIDEOS, ERRORS, EMPTIES, DOWNLOADS, NOTES, POLICY, SOURCES, go, render, playDemo, clearDemo, startProgress, qualitySheet, policySheet };

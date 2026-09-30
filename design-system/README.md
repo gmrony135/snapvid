@@ -14,7 +14,7 @@ no static mockups, no placeholder lorem.
 |---|---|---|
 | **`snapvid.html`** | The whole product as one self-contained file (551 KB, zero external requests) | Click through every screen, try the flow, play the guided demo. **Recommended first look.** |
 | **`index.html`** | The design studio (serves `src/` + `assets/`) | Work on the design: device frames, theme switch, calm-motion mode, scenario picker, live design notes |
-| **`screens.html`** | Spec gallery — all 13 screens captured at 2× in a real browser | Review the design screen by screen without clicking |
+| **`screens.html`** | Spec gallery — all 12 screens captured at 2× in a real browser | Review the design screen by screen without clicking |
 | **`brand.html`** | Live style guide — logo, colour, type, components, motion, voice | Hand the visual language to a developer or designer |
 
 Live preview: run `python3 -m http.server 8000` in this folder (already running on port **8000**).
@@ -23,7 +23,7 @@ Live preview: run `python3 -m http.server 8000` in this folder (already running 
 
 ## What's inside
 
-### 13 screens
+### 12 screens
 1. **Splash** — brand mark, tagline, trust line
 2. **Onboarding** — 3 pages, skippable, one idea each
 3. **Home** — hero, URL field with paste/clear, `Analyze Video`, supported-source strip
@@ -33,10 +33,9 @@ Live preview: run `python3 -m http.server 8000` in this folder (already running 
 7. **Download progress** — 208 px ring, % , downloaded/total, ETA, speed, Pause / Resume / Cancel
 8. **Download complete** — animated check, `Open` / `Share` / `Download another`
 9. **Downloads history** — search, Video/Audio filters, Today / Yesterday / Older, row menu (Open, Share, Rename, Delete), empty state
-10. **Settings** — Appearance (Dark/Light/System), Download, General, Privacy
-11. **Error states** — 7 patterns (invalid URL, unsupported source, unavailable, no permission, network, server busy, file generation) + inline/banner variants
-12. **Empty states** — library, no matches, waiting for Wi-Fi, offline
-13. **Desktop website** — centred 1120 px container, top nav, main input, preview card, quality panel, progress panel, 3-up library
+10. **Error states** — 7 patterns (invalid URL, unsupported source, unavailable, no permission, network, server busy, file generation) + inline/banner variants
+11. **Empty states** — library, no matches, waiting for Wi-Fi, offline
+12. **Desktop website** — centred 1120 px container, top nav, main input, preview card, quality panel, progress panel, 3-up library
 
 ### Also covered
 - **App icon & logo** — dark / light / accent tiles, 16 → 1024 px, Android adaptive + Play Store, iOS touch icon, favicon, SVG twins
@@ -54,7 +53,7 @@ Live preview: run `python3 -m http.server 8000` in this folder (already running 
 - **Paste** → fills a sample link · **Analyze Video** → staged analysis → preview
 - **Choose quality** → bottom sheet, tap any row, CTA label follows your selection
 - **Download 720p** → live ring animates, Pause / Resume / Cancel all work, then the success screen
-- **Downloads** → filter, search, row menu; **Settings** → theme, switches, cycling values
+- **Downloads** → filter, search, row menu; theme switching lives in the top bar
 - **Guided demo**: press `P` (or ▶ Play demo) to watch the whole flow run automatically
 - **Keyboard**: `←/→` screens · `1‑9` jump · `T` theme · `D` device · `R` rotate · `P` demo · `Esc` close sheets
 - **Scenario picker** (studio top bar): jump straight to any of the seven error designs or the empty states
@@ -74,7 +73,7 @@ snapvid/
 │   └── js/
 │       ├── data.js       icons, video data, errors, empty states, notes, policy
 │       ├── screens-a.js  splash, onboarding, home, analyze, preview, quality sheet
-│       ├── screens-b.js  progress, complete, library, settings, states, desktop site
+│       ├── screens-b.js  progress, complete, library, states, desktop site
 │       ├── app.js        state machine, event delegation, demo, device/theme shell
 │       └── images.js     inlined thumbnails (generated)
 ├── assets/

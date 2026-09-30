@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SnapVid — screens part B: progress, complete, library, settings, states,
+   SnapVid — screens part B: progress, complete, library, states,
    desktop website
    ========================================================================== */
 
@@ -157,81 +157,6 @@ Screens.library = (st) => {
 </div>`;
 };
 
-/* ------------------------------- SETTINGS -------------------------------- */
-function srow({ title, sub, right, act, ico, tone }) {
-  return `<button class="row row--tap" data-act="${act || "noop"}" style="min-height:56px">
-    ${ico ? `<span class="row__ico ${tone === "accent" ? "row__ico--accent" : ""}" aria-hidden="true">${SV[ico]}</span>` : ""}
-    <span class="row__txt"><span class="row__title" style="${tone === "danger" ? "color:var(--sv-danger)" : ""}">${title}</span>${sub ? `<span class="t-xs row__sub">${sub}</span>` : ""}</span>
-    ${right || `<span class="row__chev" aria-hidden="true">${SV.chev}</span>`}
-  </button>`;
-}
-
-function switchRow({ title, sub, checked, act }) {
-  return `<div class="row" style="min-height:56px">
-    <span class="row__txt"><span class="row__title">${title}</span>${sub ? `<span class="t-xs row__sub">${sub}</span>` : ""}</span>
-    <span class="sw" role="switch" tabindex="0" aria-checked="${checked}" aria-label="${title}" data-act="${act}"></span>
-  </div>`;
-}
-
-Screens.settings = (st) => `<div class="app">
-  ${appbar({ title: "Settings", right: `<button class="btn btn--icon btn--ghost" data-act="toast-help" aria-label="Help">${SV.info}</button>` })}
-  <div class="scroll">
-    <div class="card card--pad center gap-4">
-      <span aria-hidden="true" style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(150deg,#3b4250,#1e2229);box-shadow:inset 0 0 0 1px var(--stroke-strong)">AR</span>
-      <div class="grow"><p class="row__title">Ayesha Rahman</p><p class="t-xs mt-2">Local profile · no account needed</p></div>
-      <span class="badge badge--accent">Pro</span>
-    </div>
-
-    <div class="sec-head"><span class="sec-head__t">Appearance</span></div>
-    <div class="card card--pad" style="padding:14px">
-      <div class="seg" role="tablist" aria-label="Appearance">
-        <span class="seg__thumb" style="width:calc((100% - 6px)/3);transform:translateX(calc(${["dark", "light", "system"].indexOf(st.themePref)} * 100%))"></span>
-        ${[["dark", "Dark", SV.moon], ["light", "Light", SV.sun], ["system", "System", SV.monitor]]
-          .map(([k, l, ic]) => `<button role="tab" data-act="set-theme" data-v="${k}" aria-selected="${st.themePref === k}">
-            <span aria-hidden="true" style="display:inline-flex;vertical-align:-4px;margin-right:6px">${ic}</span>${l}</button>`).join("")}
-      </div>
-      <p class="t-xs mt-4">Dark mode is the default. System follows your device setting automatically.</p>
-    </div>
-
-    <div class="sec-head"><span class="sec-head__t">Download</span></div>
-    <div class="card" style="padding:2px 14px">
-      ${srow({ title: "Default quality", sub: "Used when a source offers several options", act: "cycle-quality", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.defaultQuality}p ${SV.chev}</span>` })}
-      ${srow({ title: "Default format", sub: "Where the source supports it", act: "cycle-format", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.defaultFormat} ${SV.chev}</span>` })}
-      ${switchRow({ title: "Wi‑Fi only", sub: "Queue downloads until you're on Wi‑Fi", checked: st.set.wifiOnly, act: "toggle-wifi" })}
-      ${srow({ title: "Auto-download", sub: st.set.autoDownload === "ask" ? "Ask me each time" : st.set.autoDownload === "always" ? "Start right after analysis" : "Only when I tap download", act: "cycle-auto", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.autoDownload === "ask" ? "Ask" : st.set.autoDownload === "always" ? "Always" : "Never"} ${SV.chev}</span>` })}
-      ${srow({ title: "Download location", sub: "Files ▸ SnapVid · 4.2 GB used", act: "toast-location", right: `<span class="center gap-2 t-sm" style="color:var(--accent-text)">Change ${SV.chev}</span>` })}
-    </div>
-    <p class="t-xs mt-3" style="padding:0 4px">On iPhone and Android, files are saved to SnapVid's own folder. Move them to your camera roll or cloud drive from the Downloads tab.</p>
-
-    <div class="sec-head"><span class="sec-head__t">General</span></div>
-    <div class="card" style="padding:2px 14px">
-      ${srow({ title: "Language", act: "cycle-language", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.language} ${SV.chev}</span>` })}
-      ${switchRow({ title: "Notifications", sub: "Completion and failure alerts", checked: st.set.notifications, act: "toggle-notif" })}
-      ${srow({ title: "Clear download history", sub: "Removes records · keeps your files", tone: "danger", act: "confirm-clear" })}
-      ${srow({ title: "About SnapVid", sub: "Version 2.4.0 · Build 318", act: "toast-about" })}
-    </div>
-
-    <div class="sec-head"><span class="sec-head__t">Privacy</span></div>
-    <div class="card" style="padding:2px 14px">
-      ${srow({ title: "Privacy information", sub: "What we store and what we don't", ico: "shield", act: "open-privacy" })}
-      ${srow({ title: "Data usage", sub: "Processing is server-side; files go straight to you", ico: "chart", act: "open-privacy" })}
-      ${srow({ title: "Supported-source policy", sub: "How SnapVid decides what to process", ico: "info", act: "open-policy" })}
-    </div>
-
-    <div class="banner banner--info mt-5">
-      <span class="banner__ico" aria-hidden="true">${SV.lock}</span>
-      <div>
-        <p class="banner__t" style="color:var(--text)">Downloads you're allowed to make</p>
-        <p class="banner__d">${POLICY.long}</p>
-      </div>
-    </div>
-
-    <p class="t-xs mt-5" style="text-align:center">SnapVid 2.4.0 · Made for creators and their audiences</p>
-  </div>
-  ${tabbar("settings")}
-  ${st.toast ? toast(st.toast) : ""}
-</div>`;
-
 /* ------------------------------ ERROR STATES ----------------------------- */
 Screens.errors = (st) => {
   const keys = Object.keys(ERRORS);
@@ -339,7 +264,7 @@ function siteNav(st, active) {
       <span class="site__word">SnapVid</span>
     </div>
     <div class="site__links">
-      ${[["home", "Home"], ["library", "Downloads"], ["settings", "Settings"]]
+      ${[["home", "Home"], ["library", "Downloads"]]
         .map(([k, l]) => `<button data-act="site-${k}" ${active === k ? 'aria-current="page"' : ""}>${l}</button>`).join("")}
     </div>
     <div class="center gap-3" style="margin-left:auto">
@@ -532,58 +457,6 @@ Screens.desktop = (st) => {
     </div>`;
   }
 
-  if (page === "settings") {
-    content = `<div class="site__inner">
-      <p class="t-label">Preferences</p>
-      <h1 class="t-h2 mt-2">Settings</h1>
-      <p class="t-body mt-3 mb-5">Appearance, download defaults, notifications and privacy — in four sections.</p>
-      <div class="site-settings">
-        <div class="stack gap-5">
-          <div class="card site-card">
-            <p class="t-label">Appearance</p>
-            <div class="seg mt-4" role="tablist" aria-label="Appearance">
-              <span class="seg__thumb" style="width:calc((100% - 6px)/3);transform:translateX(calc(${["dark", "light", "system"].indexOf(st.themePref)} * 100%))"></span>
-              ${[["dark", "Dark"], ["light", "Light"], ["system", "System"]].map(([k, l]) => `<button role="tab" data-act="set-theme" data-v="${k}" aria-selected="${st.themePref === k}">${l}</button>`).join("")}
-            </div>
-            <p class="t-xs mt-4">Dark is the primary theme; light is a full alternative — every screen is designed for both.</p>
-          </div>
-          <div class="card site-card">
-            <p class="t-label">Download</p>
-            <div class="stack mt-2">
-              ${srow({ title: "Default quality", sub: "Used when several options exist", act: "cycle-quality", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.defaultQuality}p ${SV.chev}</span>` })}
-              ${srow({ title: "Default format", act: "cycle-format", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.defaultFormat} ${SV.chev}</span>` })}
-              ${switchRow({ title: "Wi‑Fi only", sub: "Queue until a Wi‑Fi network is available", checked: st.set.wifiOnly, act: "toggle-wifi" })}
-              ${srow({ title: "Auto-download", act: "cycle-auto", right: `<span class="center gap-2 t-sm" style="color:var(--text-2)">${st.set.autoDownload === "ask" ? "Ask" : st.set.autoDownload === "always" ? "Always" : "Never"} ${SV.chev}</span>` })}
-              ${srow({ title: "Download location", sub: "Downloads ▸ SnapVid · 999 MB used", act: "toast-location", right: `<span class="t-sm" style="color:var(--accent-text)">Change</span>` })}
-            </div>
-          </div>
-        </div>
-        <div class="stack gap-5">
-          <div class="card site-card">
-            <p class="t-label">General</p>
-            <div class="stack mt-2">
-              ${srow({ title: "Language", act: "cycle-language", right: `<span class="t-sm" style="color:var(--text-2)">${st.set.language}</span>` })}
-              ${switchRow({ title: "Notifications", sub: "Completion and failure alerts", checked: st.set.notifications, act: "toggle-notif" })}
-              ${srow({ title: "Clear download history", sub: "Removes records · keeps your files", tone: "danger", act: "confirm-clear" })}
-              ${srow({ title: "About SnapVid", sub: "Version 2.4.0 · Build 318", act: "toast-about" })}
-            </div>
-          </div>
-          <div class="card site-card">
-            <p class="t-label">Privacy</p>
-            <div class="stack mt-2">
-              ${srow({ title: "Privacy information", sub: "What we store and what we don't", ico: "shield", act: "open-privacy" })}
-              ${srow({ title: "Data usage", sub: "Temporary server-side processing only", ico: "chart", act: "open-privacy" })}
-              ${srow({ title: "Supported-source policy", sub: "What SnapVid will and won't process", ico: "info", act: "open-policy" })}
-            </div>
-          </div>
-          <div class="banner banner--info">
-            <span class="banner__ico" aria-hidden="true">${SV.lock}</span>
-            <div><p class="banner__t" style="color:var(--text)">Downloads you're allowed to make</p><p class="banner__d">${POLICY.long}</p></div>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }
 
   return `<div class="site">
     <div class="browserbar">

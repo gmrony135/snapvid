@@ -33,7 +33,7 @@ JSDOM.fromFile(path.join(root, "index.html"), {
   const check = (name, cond, extra = "") => results.push({ name, ok: !!cond, extra });
 
   // 1. every screen renders non-trivial markup
-  const ids = ["splash", "onboarding", "home", "analyze", "preview", "quality", "progress", "complete", "library", "settings", "errors", "empty", "desktop"];
+  const ids = ["splash", "onboarding", "home", "analyze", "preview", "quality", "progress", "complete", "library", "errors", "empty", "desktop"];
   const strip = (m) => m.replace(/src="data:[^"]*"/g, 'src="data:…"').replace(/[A-Za-z0-9+/]{120,}={0,2}/g, "…");
   for (const id of ids) {
     const markup = sc(id);
@@ -117,17 +117,15 @@ JSDOM.fromFile(path.join(root, "index.html"), {
   act('[data-act="close-menu"]');
   check("row menu closes", !d.querySelector('[role="menu"]'));
 
-  // 7. settings interactions
-  api.go("settings");
-  const wifi = d.querySelector('[data-act="toggle-wifi"]');
-  const before = wifi.getAttribute("aria-checked");
-  wifi.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-  check("switch toggles", d.querySelector('[data-act="toggle-wifi"]').getAttribute("aria-checked") !== before);
-  act('[data-act="cycle-quality"]');
-  check("default quality cycles", [480, 720, 1080, 2160].includes(S.set.defaultQuality), String(S.set.defaultQuality));
+  // 7. there is no settings screen or tab any more
+  check("no settings screen", !api.SCREENS.some((x) => x.id === "settings"));
+  check("no tab-settings action", !d.querySelector('[data-act="tab-settings"]'));
+  check("bottom nav has two destinations", d.querySelectorAll("#screen .tabbar [data-act^=\"tab-\"]").length === 2,
+    String(d.querySelectorAll("#screen .tabbar [data-act^=\"tab-\"]").length));
+  check("no leftover settings controls", !d.querySelector('[data-act^="cycle-"],[data-act^="toggle-wifi"],[data-act^="toggle-notif"]'));
 
   // 8. policy sheet
-  api.go("settings");
+  api.go("home");
   act('[data-act="open-policy"]');
   check("policy sheet opens", !!d.querySelector("#pTitle"));
   act('[data-act="close-policy"]');
@@ -161,7 +159,7 @@ JSDOM.fromFile(path.join(root, "index.html"), {
 
   // 12. desktop website pages
   api.go("desktop");
-  for (const p of ["home", "library", "settings"]) {
+  for (const p of ["home", "library"]) {
     api.S.sitePage = p; api.render();
     const t = d.querySelector("#screen").textContent;
     check(`desktop page:${p}`, t.length > 200 && !/undefined/.test(t));

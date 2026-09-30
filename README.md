@@ -168,8 +168,8 @@ LICENSE                 MIT
 
 The first pass at this brief — an interactive studio: 13 screens across iPhone / Android / tablet /
 desktop, dark + light, error and empty galleries, a live brand style guide, and the test pipelines.
-It is the archived design system, so it still shows the screens the app later dropped (including the
-settings screen) — the app itself no longer has them.
+The settings screen that used to live here was removed as well, so the studio, the gallery and the
+standalone prototype all match the app again: 12 screens, two destinations, no settings.
 
 ```bash
 cd design-system
