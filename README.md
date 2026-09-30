@@ -170,8 +170,12 @@ npm install
 npm test                      # 106 smoke checks (jsdom)
 node tools/test-simple.js     # 56 checks — the app's interface
 node tools/test-live.js       # 23 checks — a real download through the real UI (needs the server)
-node tools/shots-simple.js    # interface screenshots
+node tools/shots-simple.js    # interface screenshots → assets/screens/
 node tools/inline-live.js     # re-inline live.js after editing it
+
+# test-live.js writes its captures to design-system/preview/ (ignored) so a run
+# never dirties the repo. To refresh the committed ones:
+SHOTS_OUT=../../assets/screens node tools/test-live.js
 ```
 
 ---

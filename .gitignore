@@ -9,7 +9,7 @@ node_modules/
 Thumbs.db
 
 # heavy dev artifacts — regenerate with: node design-system/tools/shots.js
-design-system/preview/*.png
+design-system/preview/
 
 # downloaded media + per-job engine logs (never commit)
 server/downloads/

@@ -11,13 +11,19 @@
  */
 const { chromium } = require("playwright");
 const path = require("path");
+const fs = require("fs");
 
 const BASE = process.env.BASE || "http://localhost:8787";
 const TEST_URL = process.env.TEST_URL || "https://archive.org/details/BigBuckBunny_124";
-const SHOT_DIR = path.join(__dirname, "..", "..", "assets", "screens");
-/* write JPEGs directly — the screenshots are committed, and PNGs are 3× the size */
+/* Screenshots go to a scratch folder by default so a test run never dirties the
+   repo. To refresh the captures that are committed:
+     SHOTS_OUT=../../assets/screens node tools/test-live.js
+   They are written as JPEGs — the committed ones are, and PNGs are 3× the size. */
+const SHOT_DIR = process.env.SHOTS_OUT
+  ? path.resolve(__dirname, "..", "..", process.env.SHOTS_OUT)
+  : path.join(__dirname, "..", "preview");
+fs.mkdirSync(SHOT_DIR, { recursive: true });
 const shot = (page, name) => page.screenshot({ path: path.join(SHOT_DIR, name + ".jpg"), type: "jpeg", quality: 82 });
-const fs = require("fs");
 
 let pass = 0, fail = 0;
 const ok = (name, cond, extra) => {
