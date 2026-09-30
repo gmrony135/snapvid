@@ -11,6 +11,8 @@ const FILE = "file://" + path.join(__dirname, "..", "..", "index.html");
   const errs = [];
   page.on("pageerror", (e) => errs.push(e.message));
   page.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+  /* the app follows the device theme, so ask for dark explicitly */
+  await page.emulateMedia({ colorScheme: "dark" });
   await page.goto(FILE, { waitUntil: "load" });
   await page.waitForTimeout(400);
 
@@ -25,11 +27,12 @@ const FILE = "file://" + path.join(__dirname, "..", "..", "index.html");
   /* 1 — home, empty */
   await shot("01-home-empty-dark");
   await page.evaluate(() => document.querySelector('[data-theme-set]') && null);
-  await nav("settings"); await tap('[data-theme-set="light"]'); await nav("home");
-  await page.waitForTimeout(350);
+  /* light: the theme follows the device now, so emulate a light device */
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.waitForTimeout(400);
   await shot("02-home-empty-light");
-  await nav("settings"); await tap('[data-theme-set="dark"]'); await nav("home");
-  await page.waitForTimeout(250);
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.waitForTimeout(300);
 
   /* 2 — error state (invalid link) */
   await tap("#analyzeBtn");
@@ -70,23 +73,21 @@ const FILE = "file://" + path.join(__dirname, "..", "..", "index.html");
   await page.keyboard.press("Escape");
   await page.waitForTimeout(250);
 
-  /* 7 — clear history → empty state */
-  await nav("settings");
-  await tap('[data-act="clear-history"]');
-  await nav("downloads");
-  await page.waitForTimeout(450);
-  await shot("11-downloads-empty-dark");
-
-  /* 8 — settings, dark + light */
-  await nav("settings");
-  await page.waitForTimeout(300);
-  await shot("12-settings-dark");
-  await tap('[data-theme-set="light"]');
-  await page.waitForTimeout(400);
-  await shot("13-settings-light");
+  /* 7 — home in light, showing the recent list this flow created */
+  await page.emulateMedia({ colorScheme: "light" });
   await nav("home");
+  await page.waitForTimeout(450);
+  await shot("12-home-light-after-flow");
+  await page.emulateMedia({ colorScheme: "dark" });
   await page.waitForTimeout(300);
-  await shot("14-home-light-after-flow");
+
+  /* 8 — delete the file → the honest empty state */
+  await nav("downloads");
+  await tap("#dlGroups [data-menu]");
+  await page.waitForTimeout(400);
+  await tap("[data-del]");
+  await page.waitForTimeout(500);
+  await shot("11-downloads-empty-dark");
 
   console.log(errs.length ? "errors: " + errs.slice(0, 5).join(" | ") : "no console errors");
   await browser.close();

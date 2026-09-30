@@ -51,10 +51,6 @@
       if (hint && document.getElementById("errorBox").hidden) {
         hint.textContent = "Connected to your SnapVid server" + (S.engine && S.engine.ffmpeg && S.engine.ffmpeg.ok ? "" : " · ffmpeg missing") + ".";
       }
-      var val = document.getElementById("savedVal");
-      var sub = document.getElementById("savedSub");
-      if (val) val.textContent = "Your device (Downloads)";
-      if (sub) sub.textContent = "Tap Save or Share after a download to move it into Photos";
       restoreHistory();
     }).catch(function () { markPreview(); });
     /* no answer at all (offline, or opened as a plain file) */

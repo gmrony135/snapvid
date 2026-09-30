@@ -35,7 +35,7 @@ const txt = (page, sel) => page.$eval(sel, (el) => el.textContent.trim());
 (async () => {
   console.log("\nSnapVid live app test — " + BASE + "\n");
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 });
+  const page = await browser.newPage({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2, colorScheme: "dark" });
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });

@@ -19,6 +19,7 @@ npm start                 # → http://localhost:8787   (needs python3 + yt-dlp 
 ```
 
 <p align="center">
+  <img src="assets/screens/01-home-empty-dark.jpg" width="24%" alt="Home" />
   <img src="assets/screens/live-01-quality-real.jpg" width="24%" alt="Real link, real qualities" />
   <img src="assets/screens/live-02-paused-real.jpg" width="24%" alt="Paused mid-download" />
   <img src="assets/screens/live-07-downloads-real.jpg" width="24%" alt="Real download history" />
@@ -121,6 +122,10 @@ The app never claims the file is already in Photos: in live mode the completion 
 
 ## The app
 
+There is **no settings screen** — the app has two destinations, Home and Downloads. The theme follows
+the device automatically (dark/light), so there is nothing to configure: quality is chosen per download,
+and the file's destination is decided by your browser/OS, not by a preference.
+
 `index.html` is the whole interface — one self-contained file (CSS, JS, icon inlined), no build step.
 It carries the live layer in a separate block at the bottom (`live.js`, inlined by
 `node design-system/tools/inline-live.js` so the file stays self-contained). If no server answers, the
@@ -134,9 +139,9 @@ from the link you paste or the files you actually download.
 |---|---|
 | **Home** — hero, URL field (paste / clear), `Analyze Video`, recent downloads | **Choose quality** — one row per resolution the source really has, with real sizes and a checkmark |
 | **Downloading** — progress ring, %, MB done of total, speed, ETA, `Pause` / `Resume` / `Cancel` | **Complete** — animated check, quality + size summary, `Open` / `Share` / `Download another` |
-| **Downloads** — Today / Yesterday / Older, row menu: Save, Open, Copy link, Delete | **Settings** — Dark / Light / System, default quality, where files go, clear history, privacy note |
+| **Downloads** — Today / Yesterday / Older, row menu: Save, Open, Copy link, Delete | **Theme** — the app follows your device, dark and light, no settings screen |
 
-21 captures: 14 of the interface, 7 from real runs — [`assets/screens/`](assets/screens).
+19 captures: 12 of the interface, 7 from real runs — [`assets/screens/`](assets/screens).
 
 ---
 
@@ -163,6 +168,8 @@ LICENSE                 MIT
 
 The first pass at this brief — an interactive studio: 13 screens across iPhone / Android / tablet /
 desktop, dark + light, error and empty galleries, a live brand style guide, and the test pipelines.
+It is the archived design system, so it still shows the screens the app later dropped (including the
+settings screen) — the app itself no longer has them.
 
 ```bash
 cd design-system
@@ -175,7 +182,7 @@ node tools/inline-live.js     # re-inline live.js after editing it
 
 # test-live.js writes its captures to design-system/preview/ (ignored) so a run
 # never dirties the repo. To refresh the committed ones:
-SHOTS_OUT=../../assets/screens node tools/test-live.js
+SHOTS_OUT=assets/screens node tools/test-live.js        # (repo-root relative)
 ```
 
 ---

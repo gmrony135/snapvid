@@ -114,22 +114,18 @@ JSDOM.fromFile(FILE, {
   click('[data-go="home"]');
   ok("recent hides again when empty", $("#recentWrap").hidden === true);
 
-  /* ---------- 9. settings ---------- */
-  click('[data-go="settings"]');
-  ok("settings view", view() === "settings");
-  click('[data-theme-set="light"]');
-  ok("light theme", d.documentElement.dataset.theme === "light");
-  ok("segmented control reflects theme", $('#seg button[aria-selected="true"]').dataset.themeSet === "light");
-  click("#wifiSw");
-  ok("switch toggles", $("#wifiSw").getAttribute("aria-checked") === "false");
-  click('[data-act="cycle-quality"]');
-  ok("default quality cycles", $("#defQuality").textContent === "720p", $("#defQuality").textContent);
-  click('[data-theme-set="dark"]');
-  ok("dark theme back", d.documentElement.dataset.theme === "dark");
+  /* ---------- 9. no settings screen any more ---------- */
+  ok("there is no settings view", d.querySelector('.view[data-view="settings"]') === null);
+  ok("there is no settings tab", d.querySelector('.tabbar [data-go="settings"]') === null);
+  ok("tab bar has exactly two destinations", d.querySelectorAll(".tabbar button").length === 2,
+    String(d.querySelectorAll(".tabbar button").length));
+  ok("no gear button in the header", d.querySelector("#toSettings") === null);
+  ok("no leftover settings controls", d.querySelectorAll("#seg,#wifiSw,#defQuality,[data-theme-set],[data-act]").length === 0);
+  ok("theme follows the device instead", ["dark", "light"].indexOf(d.documentElement.dataset.theme) > -1,
+    d.documentElement.dataset.theme);
 
   /* ---------- 10. a11y + hygiene ---------- */
   ok("icon buttons are labelled", Array.from(d.querySelectorAll("button")).filter((b) => !b.textContent.trim() && !b.getAttribute("aria-label")).length === 0);
-  ok("switch has a label", $("#wifiSw").getAttribute("aria-label") === "Wi-Fi only");
   ok("no runtime errors", errs.length === 0, errs.slice(0, 2).join(" | "));
 
   const bad = out.filter((o) => !o.c);
